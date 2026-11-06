@@ -182,7 +182,10 @@ runs:
         GITHUB_REPOSITORY: ${{ github.repository }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
         ANTHROPIC_API_KEY: ${{ inputs.claude-api-key }}
-        ENABLE_CLAUDE_FILTERING: 'true' 
+        # HouseofWork fork: was 'true'. The AI false-positive filter starts with a test call to the retired
+        # claude-3-5-haiku-20241022 (404 on every run), and when that fails it turns itself off silently.
+        # 'false' skips the call and states the behaviour we actually get. See FORK-NOTES.md.
+        ENABLE_CLAUDE_FILTERING: 'false'
         EXCLUDE_DIRECTORIES: ${{ inputs.exclude-directories }}
         FALSE_POSITIVE_FILTERING_INSTRUCTIONS: ${{ inputs.false-positive-filtering-instructions }}
         CUSTOM_SECURITY_SCAN_INSTRUCTIONS: ${{ inputs.custom-security-scan-instructions }}
